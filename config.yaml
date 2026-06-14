@@ -1,0 +1,26 @@
+# PyVoice Assistant Configuration
+
+# General preferences
+assistant:
+  name: "Nova"
+  wake_word: "hey nova"
+  wake_word_enabled: true
+  fallback_to_text: true  # Allow text-based commands in console/UI if microphone fails
+
+# User Settings
+user:
+  default_city: "Hyderabad"
+  name: "User"
+
+# Text-to-Speech Preferences
+tts:
+  engine: "offline"       # Options: "offline" (pyttsx3) or "online" (gTTS)
+  rate: 175               # Speed of speech (words per minute)
+  volume: 0.9             # Volume (0.0 to 1.0)
+  gender: "female"        # Options: "female" or "male" (depends on system voice availability)
+
+# File Paths
+paths:
+  custom_commands_file: "custom_commands.yaml"
+  database_file: "interactions.db"
+  plugins_dir: "plugins"
