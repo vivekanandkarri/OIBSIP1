@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyVoice Assistant - Nova Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <i class="fa-solid fa-wand-magic-sparkles logo-icon"></i>
+                <h1>Nova <span>Assistant</span></h1>
+            </div>
+            <div class="system-status">
+                <span id="connection-indicator" class="status-indicator online"></span>
+                <span id="connection-text">Connected</span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Layout -->
+        <div class="dashboard-grid">
+            <!-- Left Panel: Chat Console -->
+            <main class="console-panel glass-card">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-terminal"></i> Command Console</h2>
+                    <button id="clear-console-btn" class="icon-btn" title="Clear Console"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+                
+                <div id="chat-history" class="chat-history">
+                    <div class="message system">
+                        <div class="message-bubble">
+                            Welcome! I am Nova, your modular voice assistant. Say "Hey Nova" or type a command to start.
+                        </div>
+                        <span class="message-time">System</span>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <input type="text" id="command-input" placeholder="Type a command and press Enter..." autocomplete="off">
+                        <button id="text-submit-btn" class="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                    
+                    <div class="mic-controls">
+                        <button id="mic-trigger-btn" class="mic-btn" title="Click to speak">
+                            <i class="fa-solid fa-microphone"></i>
+                        </button>
+                        <span id="mic-status">Click to speak</span>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Panel: System Widgets -->
+            <aside class="widgets-panel">
+                <!-- Smart Home Mock Widget -->
+                <div class="glass-card widget-card">
+                    <h3><i class="fa-solid fa-house-laptop"></i> Smart Devices</h3>
+                    <div class="device-list">
+                        <div class="device-item">
+                            <span class="device-name"><i class="fa-solid fa-lightbulb"></i> Living Room Lights</span>
+                            <label class="switch">
+                                <input type="checkbox" id="device-living-room-lights" onchange="toggleDevice('light', 'living room', this.checked)">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="device-item">
+                            <span class="device-name"><i class="fa-solid fa-lightbulb"></i> Bedroom Lights</span>
+                            <label class="switch">
+                                <input type="checkbox" id="device-bedroom-lights" onchange="toggleDevice('light', 'bedroom', this.checked)">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="device-item flex-column">
+                            <div class="flex-row">
+                                <span class="device-name"><i class="fa-solid fa-temperature-half"></i> Thermostat</span>
+                                <span id="thermostat-val" class="widget-value">22°C</span>
+                            </div>
+                            <input type="range" id="thermostat-slider" min="16" max="30" value="22" class="range-slider" oninput="updateThermostatDisplay(this.value)" onchange="setThermostat(this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session logs / NLP Info -->
+                <div class="glass-card widget-card flex-grow">
+                    <h3><i class="fa-solid fa-brain"></i> Intent Analyzer</h3>
+                    <div class="intent-info">
+                        <div class="info-row">
+                            <span class="info-label">Last Intent:</span>
+                            <span id="last-intent" class="info-value text-highlight">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Confidence:</span>
+                            <span id="intent-confidence" class="info-value">High</span>
+                        </div>
+                        <div class="info-block">
+                            <span class="info-label">Extracted Entities:</span>
+                            <pre id="extracted-entities" class="json-display">{}</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Quick Info -->
+                <div class="glass-card widget-card">
+                    <h3><i class="fa-solid fa-cloud-sun"></i> Weather Widget</h3>
+                    <div id="weather-display" class="weather-display">
+                        <div class="weather-main">
+                            <span id="weather-temp" class="weather-temp">--°C</span>
+                            <div class="weather-desc">
+                                <span id="weather-city" class="weather-city">Hyderabad</span>
+                                <span id="weather-cond" class="weather-cond">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Background music/audio element for TTS playing -->
+    <audio id="tts-player" style="display: none;"></audio>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
