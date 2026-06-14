@@ -1,0 +1,17 @@
+# PyVoice Assistant Custom Commands
+# Format:
+# - trigger: "spoken trigger phrase"
+#   action_type: "shell" or "python"
+#   action: "command to run or function to execute"
+#   response: "spoken confirmation message"
+
+commands:
+  - trigger: "open notepad"
+    action_type: "shell"
+    action: "notepad.exe"
+    response: "Opening Notepad for you."
+
+  - trigger: "check system time"
+    action_type: "python"
+    action: "import datetime; print(datetime.datetime.now().strftime('%H:%M'))"
+    response: "Checking the system time."
